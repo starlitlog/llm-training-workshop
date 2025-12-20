@@ -227,19 +227,19 @@ Created by **Dr. Ylli Prifti** ([ORCID: 0000-0002-9323-875X](https://orcid.org/0
 **Suggested citation format:**
 ```
 Prifti, Y. (2025). LLM Training Workshop: Complete Learning Path from Theory to Production. 
-GitHub repository. https://github.com/[username]/llm-training-workshop
+GitHub repository. https://github.com/starlitlog/llm-training-workshop
 ```
 
-### **Academic Publication Potential**
+### **Academic Publication**
 
-This comprehensive workshop could make an excellent **arXiv paper** covering:
-- **Practical LLM training methodologies** for software engineers
-- **Cost-effective alternatives** to commercial API dependencies  
-- **Novel domain training** examples (FLOWROLL/DIMMATCH DSL)
-- **Production MLOps pipelines** for educational purposes
-- **Hardware optimization** strategies for different budgets
+This work has been developed into a comprehensive **academic paper** covering:
+- **Integrated educational frameworks** for practical LLM training
+- **Novel domain training methodologies** with the FLOWROLL/DIMMATCH DSL case study
+- **Hardware-conscious education** approaches for consumer GPU accessibility
+- **Production-ready MLOps pipelines** for educational implementation
+- **Cost-effectiveness analysis** of custom training vs. commercial APIs
 
-*Potential venues: Educational track of NeurIPS, ICML, ICLR, or specialized workshops on ML education.*
+**📄 ArXiv link**: *Pending publication*
 
 ---
 
