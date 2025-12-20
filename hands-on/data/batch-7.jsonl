@@ -1,0 +1,32 @@
+{"prompt": "FLOWROLL shows blank values only when I switch to a fiscal calendar. Why would the calendar type matter?", "completion": "Non-standard mappings can disrupt chronological continuity required for rolling windows."}
+{"prompt": "DIMMATCH aligns most items but appears to misplace a few. Should I suspect duplicate codes?", "completion": "Ensure all list items have unique codes before alignment."}
+{"prompt": "FLOWROLL values oscillate more than expected. Does that indicate a problem?", "completion": "Those fluctuations propagate directly into the rolling results."}
+{"prompt": "DIMMATCH is failing after I added a secondary parent relationship. Why?", "completion": "Unless explicitly mapped, yes."}
+{"prompt": "FLOWROLL gives identical values for different customers. Is it ignoring dimensions?", "completion": "Correct."}
+{"prompt": "DIMMATCH works until I add conditional overrides in the formula. Why does this cause issues?", "completion": "Align branches first, then apply DIMMATCH."}
+{"prompt": "FLOWROLL outputs seem inflated. How does window overlap affect the totals?", "completion": "Yes. Rolling windows naturally overlap."}
+{"prompt": "DIMMATCH fails on my historical model version but works on the new version. What changed?", "completion": "Then alignment will fail until structures match."}
+{"prompt": "FLOWROLL produces different results between test and production. Should I suspect time ordering again?", "completion": "Extra periods shift the rolling calculations."}
+{"prompt": "DIMMATCH aligns values but seems to ignore the parent hierarchy. Is that expected?", "completion": "Only explicitly mapped relationships are used."}
+{"prompt": "FLOWROLL produces very small values after a data correction. Why would correcting earlier data reduce rolling totals?", "completion": "That spike was inflating the old windows."}
+{"prompt": "DIMMATCH errors occur only when aligning with a cross-model import. Why?", "completion": "This breaks identity. Use shared structural references instead."}
+{"prompt": "FLOWROLL becomes unstable when I switch from daily to weekly periods. Why?", "completion": "Misalignment disrupts rolling continuity."}
+{"prompt": "DIMMATCH seems to behave differently on a hierarchy with ragged levels. Why?", "completion": "Normalize the hierarchy or provide explicit mappings."}
+{"prompt": "FLOWROLL spikes at month boundaries where imports occur. Why?", "completion": "These jumps propagate through the rolling windows."}
+{"prompt": "DIMMATCH aligns but seems to create more output rows than input rows. Why?", "completion": "That additional detail drives expansion."}
+{"prompt": "FLOWROLL outputs nothing for a period list that starts at period 5 instead of period 1. Why?", "completion": "Then no rolling windows can be constructed."}
+{"prompt": "DIMMATCH produces incorrect results only on one branch of a conditional allocation. Why?", "completion": "Both branches must align before combining them."}
+{"prompt": "FLOWROLL generates unexpected returns when period labels include text prefixes. Why?", "completion": "Alphabetical sorting incorrectly places 'M10' before 'M2'."}
+{"prompt": "DIMMATCH alignment fails when the Target dimension includes summary-only members. Why?", "completion": "Use leaf-to-leaf mapping, then aggregate to summary levels."}
+{"prompt": "FLOWROLL shows gaps in the output although every period has data. Why?", "completion": "Correct the ordering to fix the gaps."}
+{"prompt": "DIMMATCH creates alignment but summary totals appear wrong. Why?", "completion": "Values may collapse into fewer members, affecting totals."}
+{"prompt": "FLOWROLL reduces sharply at mid-year even though values seem stable. Why?", "completion": "Their removal reduces the rolling total."}
+{"prompt": "DIMMATCH duplicates rows when aligning SKU data to a region hierarchy. Why?", "completion": "That many-to-one relationship produces duplicates."}
+{"prompt": "FLOWROLL outputs seem unaffected by recent period corrections. Why?", "completion": "Only windows overlapping those periods reflect the changes."}
+{"prompt": "DIMMATCH breaks when aligning two lists with identical names but different internal IDs. Why?", "completion": "Imported lists with identical names do not share structure."}
+{"prompt": "FLOWROLL produces unexpectedly large values at the start of the year. Why?", "completion": "That explains early-year spikes."}
+{"prompt": "DIMMATCH outputs blanks for members that appear correctly mapped. What else could cause blanks?", "completion": "Populate the missing values before alignment."}
+{"prompt": "FLOWROLL increments seem uneven. Does the order of calculation matter?", "completion": "Correct ordering is required for consistent windows."}
+{"prompt": "DIMMATCH causes partial loss of data after aligning product categories. Why would data disappear?", "completion": "Include that mapping to retain the data."}
+{"prompt": "FLOWROLL generates identical windows for a time series with periodic cycles. Why?", "completion": "Then `PeriodCount=4` will create identical rolling sums."}
+{"prompt": "DIMMATCH unexpectedly aligns values across unrelated departments. Why?", "completion": "Review and correct the mapping manually."}

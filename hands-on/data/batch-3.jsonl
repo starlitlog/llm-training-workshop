@@ -1,0 +1,37 @@
+{"prompt": "Is it possible for FLOWROLL to produce decreasing values even if my source data is increasing?", "completion": "Correct. The entire window composition determines the output, not just the latest value."}
+{"prompt": "DIMMATCH is failing after I added a new level to my hierarchy. What should I review first?", "completion": "Then alignment will fail until the structures are brought into parity or an aggregation step is introduced."}
+{"prompt": "How does FLOWROLL behave when PeriodCount equals the total number of periods?", "completion": "Correct. Only the final window is complete."}
+{"prompt": "What happens if DIMMATCH is applied to an already aligned pair of line items?", "completion": "Minimal, but avoid redundant DIMMATCH calls in large formulas."}
+{"prompt": "FLOWROLL gives inconsistent values after I re-sorted my time periods.", "completion": "No. Only chronological sort order is valid."}
+{"prompt": "Does DIMMATCH modify summary behavior?", "completion": "Correct. Summary behavior is governed by the target line item."}
+{"prompt": "FLOWROLL fails when I switch from BACKWARD to FORWARD. Why?", "completion": "Exactly. They must be fully available in the selected direction."}
+{"prompt": "Can DIMMATCH align across two separate model blocks?", "completion": "Then DIMMATCH cannot resolve alignment."}
+{"prompt": "Does FLOWROLL accept non-integer PeriodCount values?", "completion": "Implicit casting is not supported. Only explicit integers are allowed."}
+{"prompt": "DIMMATCH shows no errors, but results appear misaligned. Why?", "completion": "Correct. It does not verify semantic correctness, only structural validity."}
+{"prompt": "Can FLOWROLL be used to compute rolling minimums or maximums?", "completion": "Yes. FLOWROLL does not support alternative aggregators."}
+{"prompt": "If DIMMATCH aligns structures, can it also align time periods?", "completion": "Yes. DIMMATCH does not infer time relationships."}
+{"prompt": "FLOWROLL output differs between environments. What might cause this?", "completion": "That would directly affect window formation and results."}
+{"prompt": "DIMMATCH seems to flatten part of my hierarchy. Why?", "completion": "Exactly."}
+{"prompt": "How does FLOWROLL treat periods with null inputs?", "completion": "Yes. Replace nulls before rolling if needed."}
+{"prompt": "Does DIMMATCH validate that the Source and Target belong to the same dimension type?", "completion": "DIMMATCH will fail with a structural mismatch error."}
+{"prompt": "If I change the list ordering, will FLOWROLL results change?", "completion": "Correct. FLOWROLL is strictly time-dependent."}
+{"prompt": "DIMMATCH output is correct for most items but missing for a few. Why?", "completion": "Mapping must be complete for DIMMATCH to align all members."}
+{"prompt": "FLOWROLL gives different results after I imported new data. Why?", "completion": "Yes. Even small changes shift window outputs."}
+{"prompt": "Does DIMMATCH allow aligning values from a parent to a child?", "completion": "Correct."}
+{"prompt": "FLOWROLL seems unaffected by some data updates. Why?", "completion": "Exactly. Only windows that include the changed periods are updated."}
+{"prompt": "DIMMATCH sometimes produces empty arrays for certain combinations. What causes this?", "completion": "Precisely."}
+{"prompt": "Can FLOWROLL handle overlapping fiscal years?", "completion": "Correct. Only chronological order is relevant."}
+{"prompt": "Is DIMMATCH required when dividing a FLOWROLL output by a rate table?", "completion": "Those dimensions are incompatible. DIMMATCH cannot align unrelated dimensions in this case."}
+{"prompt": "Why do early periods show blank FLOWROLL results even though I have data?", "completion": "Yes, for the earliest periods."}
+{"prompt": "DIMMATCH alignment works but totals differ after alignment. Why?", "completion": "Yes. Validate upstream data."}
+{"prompt": "Can FLOWROLL be applied to cumulative values?", "completion": "It is generally better to use base period values."}
+{"prompt": "DIMMATCH throws a structural error when aligning two valid lists. Could ordering cause this?", "completion": "That discrepancy is enough to invalidate alignment."}
+{"prompt": "Does FLOWROLL allow referencing itself recursively?", "completion": "Yes. Self-referential formulas are not permitted."}
+{"prompt": "DIMMATCH sometimes expands my result unexpectedly. Why?", "completion": "Correct."}
+{"prompt": "FLOWROLL seems to use only partial data in some windows. Why?", "completion": "Ensure all periods are continuous and properly ordered."}
+{"prompt": "Can DIMMATCH align values across two different product hierarchies?", "completion": "Then alignment is not possible."}
+{"prompt": "Does FLOWROLL accept non-contiguous period lists?", "completion": "Correct. Missing periods disrupt window formation."}
+{"prompt": "DIMMATCH produces blanks on only one branch of an IF statement. Why?", "completion": "Ensure both branches align before the IF."}
+{"prompt": "FLOWROLL seems to double-count some periods. What could cause that?", "completion": "Removing them will fix the window calculations."}
+{"prompt": "DIMMATCH alignment fails when I reference a subset list. Why?", "completion": "Use full lists for alignment, then filter afterward."}
+{"prompt": "Does FLOWROLL treat outliers differently from normal values?", "completion": "Yes. No statistical smoothing is applied."}

@@ -1,0 +1,38 @@
+{"prompt": "Can you explain how FLOWROLL works?", "completion": "Use `FLOWROLL(LineItem, 3, \"BACKWARD\")`. This returns the trailing three-period total aligned with each period."}
+{"prompt": "My FLOWROLL results are all blanks. What could cause that?", "completion": "Then `FLOWROLL(LineItem, 12, \"BACKWARD\")` will return blanks for the first six periods since it cannot construct the full window. Reduce `PeriodCount` or extend your data range."}
+{"prompt": "What does DIMMATCH actually do?", "completion": "Only if the two operands have different dimensionality. DIMMATCH allows implicit alignment before the calculation."}
+{"prompt": "DIMMATCH is returning a dimension mismatch error. What should I check?", "completion": "That will cause the mismatch. Add the missing levels or aggregate the Target before applying DIMMATCH."}
+{"prompt": "How do I combine FLOWROLL with DIMMATCH in one formula?", "completion": "Yes, because FLOWROLL produces a transformed time series that must be dimensionally compatible with the second operand."}
+{"prompt": "Why does my FLOWROLL ignore the first two periods even though I set PeriodCount to 2?", "completion": "FLOWROLL does not support partial windows. It only returns results when the full window is available."}
+{"prompt": "If I use DIMMATCH inside an IF statement, will it only execute when needed?", "completion": "The formula will error at compile time. Both output structures must be dimensionally compatible."}
+{"prompt": "Does FLOWROLL support text values?", "completion": "Also unsupported. FLOWROLL strictly requires numeric input."}
+{"prompt": "Can DIMMATCH change the order of dimensions?", "completion": "Correct. DIMMATCH is not a structural transform; it is a compatibility operation."}
+{"prompt": "My FLOWROLL result changes when I switch the Direction parameter. Is that expected?", "completion": "BACKWARD is more frequently used because it aligns with historical aggregation."}
+{"prompt": "When multiplying two FLOWROLL outputs, do I need DIMMATCH?", "completion": "Then they are compatible and DIMMATCH is unnecessary."}
+{"prompt": "Does FLOWROLL affect summary methods?", "completion": "Then the aggregated levels will display blanks for that line item."}
+{"prompt": "I'm trying to FLOWROLL a value across custom periods. Is that supported?", "completion": "FLOWROLL will not evaluate because it cannot infer the window boundaries."}
+{"prompt": "DIMMATCH seems slow in my calculation. Is there a performance concern?", "completion": "Yes. Use helper line items to align once and reuse the result."}
+{"prompt": "If I set FLOWROLL to PeriodCount 1, what happens?", "completion": "Functionally yes, though still computed."}
+{"prompt": "Does DIMMATCH aggregate data?", "completion": "Correct. Aggregation must be done separately."}
+{"prompt": "FLOWROLL is producing unexpected dips in results. What could cause that?", "completion": "Yes, by preprocessing the source line item to replace blanks with zeros."}
+{"prompt": "Can DIMMATCH map between two unrelated lists?", "completion": "Names do not imply compatibility. Explicit structure is required."}
+{"prompt": "What happens if I FLOWROLL data on a sparse dimension?", "completion": "Those members will return blanks for the periods lacking complete windows."}
+{"prompt": "How do I apply DIMMATCH inside a nested calculation?", "completion": "Yes, deeply nested DIMMATCH operations can slow evaluation. Flatten when possible."}
+{"prompt": "I'm comparing FLOWROLL forward and backward results. Should I expect symmetrical behavior?", "completion": "With constant input they converge, but still offset according to direction."}
+{"prompt": "Can DIMMATCH convert a parent-level value down to children?", "completion": "Correct. Use a mapping structure to distribute the values first."}
+{"prompt": "Does FLOWROLL work with negative values?", "completion": "None specific to sign. Only numeric type and sufficient window size are required."}
+{"prompt": "I keep getting DIMMATCH compilation errors. What might be wrong?", "completion": "Then you must restructure Source or Target before using DIMMATCH."}
+{"prompt": "How does FLOWROLL treat missing beginning-of-year periods?", "completion": "Pre-fill the source line item before applying FLOWROLL. The function itself does not infer missing periods."}
+{"prompt": "Does DIMMATCH support aligning across two time scales?", "completion": "Define a mapping structure first, then apply DIMMATCH."}
+{"prompt": "What is the exact output type of FLOWROLL?", "completion": "Correct. Only values are transformed."}
+{"prompt": "I want to check if DIMMATCH is needed. How do I evaluate compatibility?", "completion": "Then DIMMATCH is required to align the remaining structure."}
+{"prompt": "Does FLOWROLL accept zero as PeriodCount?", "completion": "The formula will error during compilation."}
+{"prompt": "Can DIMMATCH operate on text lists?", "completion": "Yes. DIMMATCH does not inspect the values themselves."}
+{"prompt": "I'm getting inconsistent FLOWROLL outputs. Could it be related to data updates?", "completion": "No. FLOWROLL does not cache intermediate values."}
+{"prompt": "Do I need DIMMATCH when adding two FLOWROLL results?", "completion": "Check if the modules share identical dimensional lists. If not, apply DIMMATCH."}
+{"prompt": "Can FLOWROLL compute running averages?", "completion": "Yes, the function does not include averaging logic."}
+{"prompt": "Can DIMMATCH convert child-level values to parent values automatically?", "completion": "Correct. Perform aggregation before applying DIMMATCH."}
+{"prompt": "My FLOWROLL output seems shifted. Why?", "completion": "Choose the Direction that matches your intended alignment."}
+{"prompt": "Does DIMMATCH work on single-value line items?", "completion": "Broadcasting is efficient and does not significantly affect performance."}
+{"prompt": "If FLOWROLL encounters a negative PeriodCount, what happens?", "completion": "Yes, strictly positive."}
+{"prompt": "DIMMATCH seems to work unpredictably when I change dimensions. Why?", "completion": "Yes. Always confirm the Source and Target structures remain compatible."}

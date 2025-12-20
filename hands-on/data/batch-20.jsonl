@@ -1,0 +1,51 @@
+{"prompt": "How to get 3-month trailing total?", "completion": "`FLOWROLL(LineItem, 3, \"BACKWARD\")`."}
+{"prompt": "What does Direction do?", "completion": "\"BACKWARD\" = trailing, \"FORWARD\" = leading."}
+{"prompt": "Basic DIMMATCH syntax?", "completion": "`DIMMATCH(SourceLineItem, TargetDimension)`."}
+{"prompt": "FLOWROLL returns zeros?", "completion": "Check input has values and PeriodCount isn't too large."}
+{"prompt": "PeriodCount=1 result?", "completion": "Returns original values unchanged."}
+{"prompt": "Align sales to product hierarchy?", "completion": "`DIMMATCH(Sales, TargetProductList)` with mappings."}
+{"prompt": "Why blanks in first 5 periods?", "completion": "Insufficient prior data. PeriodCount=6 needs 6 periods."}
+{"prompt": "DIMMATCH without mapping table?", "completion": "Only if direct structural compatibility exists."}
+{"prompt": "12-period forward sum?", "completion": "`FLOWROLL(LineItem, 12, \"FORWARD\")`."}
+{"prompt": "DIMMATCH fails revenue/customer?", "completion": "Missing structural compatibility or mappings."}
+{"prompt": "Fix unexpected FLOWROLL values?", "completion": "Check chronological order and PeriodCount."}
+{"prompt": "Incomplete window result?", "completion": "Blanks."}
+{"prompt": "DIMMATCH on time?", "completion": "No. List dimensions only."}
+{"prompt": "6-month trailing average?", "completion": "`FLOWROLL(LineItem, 6, \"BACKWARD\") / 6`."}
+{"prompt": "Dimension errors in DIMMATCH?", "completion": "Verify definitions and mappings."}
+{"prompt": "Periods out of order?", "completion": "FLOWROLL fails. Needs chronological sequence."}
+{"prompt": "Map SKUs to regions?", "completion": "Create mapping table, use `DIMMATCH(SKUData, RegionList)`."}
+{"prompt": "FLOWROLL with negatives?", "completion": "Yes, includes them in sum."}
+{"prompt": "Partial DIMMATCH results?", "completion": "Missing mappings for some items."}
+{"prompt": "Minimum PeriodCount?", "completion": "1, but below 2 is pointless."}
+{"prompt": "Debug DIMMATCH?", "completion": "Check compatibility, mappings, relationships."}
+{"prompt": "FLOWROLL jumps?", "completion": "Large values entering/leaving window."}
+{"prompt": "Weekly FLOWROLL?", "completion": "Yes, works with any sequential periods."}
+{"prompt": "Mismatched dimensions?", "completion": "Blanks or errors."}
+{"prompt": "Quarter-to-date?", "completion": "`FLOWROLL(LineItem, 3, \"BACKWARD\")`."}
+{"prompt": "Ignored hierarchy levels?", "completion": "Missing mappings at those levels."}
+{"prompt": "BACKWARD vs FORWARD?", "completion": "Trailing vs leading windows."}
+{"prompt": "Cross-model DIMMATCH?", "completion": "No. Single model only."}
+{"prompt": "Reordering changes results?", "completion": "Yes. Order determines windows."}
+{"prompt": "DIMMATCH with filters?", "completion": "DIMMATCH first, then filter."}
+{"prompt": "Max PeriodCount?", "completion": "No limit, but exceeding periods = blanks."}
+{"prompt": "Value duplication?", "completion": "Target has children, expands to all."}
+{"prompt": "Year-over-year totals?", "completion": "`FLOWROLL(LineItem, 12, \"BACKWARD\")`."}
+{"prompt": "Fiscal calendars?", "completion": "Yes, if chronologically ordered."}
+{"prompt": "New items blank?", "completion": "Add mapping entries."}
+{"prompt": "Boundary behavior?", "completion": "Blanks when windows extend beyond range."}
+{"prompt": "Combine FLOWROLL + DIMMATCH?", "completion": "`DIMMATCH(FLOWROLL(LineItem, 6, \"BACKWARD\"), TargetDim)`."}
+{"prompt": "Large values?", "completion": "Large PeriodCount accumulates more periods."}
+{"prompt": "One-to-many?", "completion": "Yes, distributes or aggregates."}
+{"prompt": "4-week rolling?", "completion": "`FLOWROLL(LineItem, 4, \"BACKWARD\")` for weekly periods."}
+{"prompt": "One-way DIMMATCH?", "completion": "Unidirectional mappings. Need both directions."}
+{"prompt": "Missing periods?", "completion": "Breaks windows, returns blanks."}
+{"prompt": "Align different dimensions?", "completion": "`DIMMATCH(SourceMeasure, CommonDimension)`."}
+{"prompt": "Smooth volatility?", "completion": "Yes. Larger PeriodCount smooths more."}
+{"prompt": "New hierarchy members?", "completion": "Add to mapping tables."}
+{"prompt": "Regional rolling sums?", "completion": "`FLOWROLL(RegionalData, 3, \"BACKWARD\")` - independent per region."}
+{"prompt": "When FORWARD vs BACKWARD?", "completion": "Historical = BACKWARD, future = FORWARD."}
+{"prompt": "Unexpected aggregation?", "completion": "Mapping to parent levels aggregates."}
+{"prompt": "Forecasting with FLOWROLL?", "completion": "No. FORWARD shows future data, doesn't predict."}
+{"prompt": "Syntax error in FLOWROLL?", "completion": "Check all three parameters present and valid."}
+{"prompt": "Empty result set?", "completion": "Input blank or PeriodCount exceeds range."}

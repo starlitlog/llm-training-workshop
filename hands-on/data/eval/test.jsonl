@@ -1,0 +1,96 @@
+{"prompt": "How do I use FLOWROLL to get a trailing 3-month total?", "completion": "Use `FLOWROLL(LineItem, 3, \"BACKWARD\")` to compute the trailing three-month rolling sum."}
+{"prompt": "What does the Direction parameter do in FLOWROLL?", "completion": "Direction controls whether the window looks backward (trailing) or forward (leading) from the current period."}
+{"prompt": "Can you show me a basic DIMMATCH example?", "completion": "Use `DIMMATCH(SourceLineItem, TargetDimension)` to align the source values to the target dimension structure."}
+{"prompt": "My FLOWROLL returns all zeros. What should I check?", "completion": "Verify that your input LineItem contains non-zero values and that PeriodCount doesn't exceed available periods."}
+{"prompt": "What happens if I set PeriodCount to 1 in FLOWROLL?", "completion": "With PeriodCount=1, FLOWROLL simply returns the original values since the window contains only one period."}
+{"prompt": "How do I align sales data to a different product hierarchy?", "completion": "Use `DIMMATCH(Sales, TargetProductList)` with proper mapping relationships between source and target hierarchies."}
+{"prompt": "FLOWROLL gives blanks for the first 5 periods. Why?", "completion": "Those periods don't have enough prior data to form a complete window. If PeriodCount=6, the first 5 periods will be blank."}
+{"prompt": "Can DIMMATCH work without a mapping table?", "completion": "Only if the source and target dimensions have direct structural compatibility through parent-child relationships."}
+{"prompt": "What's the syntax for a 12-period forward rolling sum?", "completion": "Use `FLOWROLL(LineItem, 12, \"FORWARD\")` to compute the forward-looking 12-period sum."}
+{"prompt": "Why does DIMMATCH fail when aligning revenue to customer list?", "completion": "The dimensions must be structurally compatible. Check that mapping relationships exist between the source and target hierarchies."}
+{"prompt": "How do I fix FLOWROLL when it returns unexpected values?", "completion": "Check that periods are sorted chronologically and PeriodCount matches your intended window size."}
+{"prompt": "What does FLOWROLL return for incomplete windows?", "completion": "FLOWROLL returns blanks when it cannot construct a complete window at the beginning or end of the time range."}
+{"prompt": "Can I use DIMMATCH on time dimensions?", "completion": "No. DIMMATCH is designed for structural list dimensions, not time periods."}
+{"prompt": "How do I calculate a 6-month backward rolling average?", "completion": "Use `FLOWROLL(LineItem, 6, \"BACKWARD\") / 6` to get the trailing 6-month average."}
+{"prompt": "DIMMATCH shows dimension errors. What's wrong?", "completion": "Verify that both source and target dimensions are properly defined with compatible structures or explicit mappings."}
+{"prompt": "What happens if my time periods are out of order?", "completion": "FLOWROLL requires chronological ordering. Out-of-order periods will produce incorrect rolling windows."}
+{"prompt": "How do I map product SKUs to a regional hierarchy using DIMMATCH?", "completion": "Create a mapping table linking SKUs to regions, then use `DIMMATCH(SKUData, RegionList)` to align values."}
+{"prompt": "Can FLOWROLL handle negative numbers?", "completion": "Yes. FLOWROLL includes negative values in the rolling sum just like positive values."}
+{"prompt": "Why does DIMMATCH return partial results?", "completion": "Some source items lack mapping relationships. Add complete mappings for all leaf-level members."}
+{"prompt": "What's the minimum PeriodCount for FLOWROLL?", "completion": "PeriodCount must be at least 1, though values below 2 don't create meaningful rolling windows."}
+{"prompt": "How do I troubleshoot DIMMATCH alignment issues?", "completion": "Verify structural compatibility, check mapping tables for completeness, and ensure all required relationships are defined."}
+{"prompt": "FLOWROLL results jump unexpectedly. What causes this?", "completion": "Large values entering or leaving the rolling window create jumps. Check input data for spikes or gaps."}
+{"prompt": "Can I use FLOWROLL on weekly data?", "completion": "Yes. FLOWROLL works with any sequential time periods including weeks, months, or custom calendars."}
+{"prompt": "What does DIMMATCH do when dimensions don't match?", "completion": "DIMMATCH returns blanks or errors for items without structural compatibility or mapping relationships."}
+{"prompt": "How do I get a quarter-to-date total with FLOWROLL?", "completion": "Use `FLOWROLL(LineItem, 3, \"BACKWARD\")` for quarterly totals aligned to each month within the quarter."}
+{"prompt": "Why does DIMMATCH ignore some hierarchy levels?", "completion": "DIMMATCH requires explicit mappings at all levels. Add parent-child relationships for the missing hierarchy levels."}
+{"prompt": "What happens if I change Direction from BACKWARD to FORWARD?", "completion": "The window flips from trailing to leading, computing future sums instead of historical sums."}
+{"prompt": "Can DIMMATCH align data across different models?", "completion": "Not directly. DIMMATCH works within a single model using internal structural relationships and mappings."}
+{"prompt": "FLOWROLL gives different results after reordering periods. Why?", "completion": "Period order determines window composition. Always maintain chronological ordering for correct rolling calculations."}
+{"prompt": "How do I use DIMMATCH with filtered data?", "completion": "Apply DIMMATCH first, then filter. DIMMATCH operates on full dimensional structure before filtering takes effect."}
+{"prompt": "What's the maximum PeriodCount I can use in FLOWROLL?", "completion": "No hard limit, but PeriodCount exceeding available periods will return blanks for all windows."}
+{"prompt": "Why does DIMMATCH duplicate values across members?", "completion": "The target dimension has child nodes. DIMMATCH expands values to all applicable members in the target structure."}
+{"prompt": "How do I calculate year-over-year rolling sums?", "completion": "Use `FLOWROLL(LineItem, 12, \"BACKWARD\")` to get trailing 12-month totals for year-over-year comparison."}
+{"prompt": "Can FLOWROLL work with fiscal calendars?", "completion": "Yes, if fiscal periods are properly sequenced in chronological order within the model."}
+{"prompt": "DIMMATCH returns blanks for new items. How do I fix this?", "completion": "Add mapping entries for the new items to include them in the dimensional alignment."}
+{"prompt": "What does FLOWROLL do at period boundaries?", "completion": "FLOWROLL returns blanks when the window extends beyond available periods at the start or end of the range."}
+{"prompt": "How do I combine FLOWROLL and DIMMATCH in one formula?", "completion": "Apply FLOWROLL first, then use DIMMATCH on the result: `DIMMATCH(FLOWROLL(LineItem, 6, \"BACKWARD\"), TargetDim)`."}
+{"prompt": "Why are my FLOWROLL values so large?", "completion": "Check your PeriodCount. Large windows accumulate many periods, resulting in large sums."}
+{"prompt": "Can DIMMATCH handle one-to-many relationships?", "completion": "Yes. DIMMATCH distributes or aggregates values based on the structural relationship between source and target."}
+{"prompt": "How do I get a 4-week rolling total?", "completion": "Use `FLOWROLL(LineItem, 4, \"BACKWARD\")` if your model uses weekly periods."}
+{"prompt": "DIMMATCH works in one direction but not the reverse. Why?", "completion": "Mapping relationships may be unidirectional. Verify that relationships exist in both directions if needed."}
+{"prompt": "What happens when FLOWROLL encounters missing periods?", "completion": "Missing periods within the time range prevent complete windows, causing FLOWROLL to return blanks."}
+{"prompt": "How do I align measures from different dimensionalities?", "completion": "Use `DIMMATCH(SourceMeasure, CommonDimension)` to project both measures onto a shared dimensional structure."}
+{"prompt": "Can FLOWROLL smooth volatile data?", "completion": "Yes. Larger PeriodCount values create smoother results by averaging out short-term fluctuations."}
+{"prompt": "Why does DIMMATCH fail after adding new hierarchy members?", "completion": "New members need mapping relationships. Add them to your mapping tables to restore alignment."}
+{"prompt": "How do I calculate a rolling 3-period sum for each region?", "completion": "Use `FLOWROLL(RegionalData, 3, \"BACKWARD\")` to compute rolling sums independently for each region."}
+{"prompt": "What's the difference between FORWARD and BACKWARD in FLOWROLL?", "completion": "BACKWARD creates trailing windows (historical data), FORWARD creates leading windows (future data)."}
+{"prompt": "DIMMATCH produces unexpected aggregations. What should I check?", "completion": "Verify the target dimension structure. Aggregation occurs when mapping to parent levels in the hierarchy."}
+{"prompt": "Can I use FLOWROLL for forecasting?", "completion": "No. FLOWROLL only aggregates existing data. Use FORWARD direction for leading indicators, not predictions."}
+{"prompt": "How do I fix DIMMATCH errors with composite lists?", "completion": "Ensure all component dimensions in the composite list have compatible mappings to the target dimension."}
+{"prompt": "What causes FLOWROLL to return the same value for multiple periods?", "completion": "If input data is constant and PeriodCount creates overlapping windows, results will appear stable or identical."}
+{"prompt": "Can DIMMATCH align based on member names?", "completion": "No. DIMMATCH uses internal IDs and structural relationships, not member names or labels."}
+{"prompt": "How do I get a 13-week rolling average?", "completion": "Use `FLOWROLL(LineItem, 13, \"BACKWARD\") / 13` to compute the trailing 13-week average."}
+{"prompt": "Why does FLOWROLL produce negative totals?", "completion": "Your input data contains negative values. FLOWROLL includes all values in the rolling sum, positive or negative."}
+{"prompt": "What does DIMMATCH do with unmapped items?", "completion": "Unmapped items return blanks or are excluded from the alignment. Add mappings to include them."}
+{"prompt": "How do I calculate month-to-date using FLOWROLL?", "completion": "FLOWROLL doesn't directly support month-to-date. Use alternative aggregation methods for within-period totals."}
+{"prompt": "Can FLOWROLL handle irregular period lengths?", "completion": "Yes, but all periods must be present and chronologically ordered. 4-4-5 calendars work if properly sequenced."}
+{"prompt": "DIMMATCH shows correct alignment but wrong values. What's the issue?", "completion": "DIMMATCH only handles dimensional alignment, not calculation logic. Check the source formula for errors."}
+{"prompt": "What happens if I omit the Direction parameter?", "completion": "FLOWROLL requires Direction. Omitting it causes a syntax error."}
+{"prompt": "How do I map customers to territories with DIMMATCH?", "completion": "Create a customer-to-territory mapping, then use `DIMMATCH(CustomerData, TerritoryList)` to align values."}
+{"prompt": "Can FLOWROLL cross fiscal year boundaries?", "completion": "Yes, if periods are chronologically continuous across year boundaries."}
+{"prompt": "Why does DIMMATCH slow down with large hierarchies?", "completion": "Deep or wide hierarchies require more structural processing. Pre-aggregate or simplify the hierarchy where possible."}
+{"prompt": "How do I get last 6 months total for each product?", "completion": "Use `FLOWROLL(ProductSales, 6, \"BACKWARD\")` to compute trailing 6-month totals by product."}
+{"prompt": "What causes DIMMATCH to return dimension errors?", "completion": "Incompatible dimensions or missing structural relationships. Ensure source and target are properly mapped."}
+{"prompt": "Can FLOWROLL work with boolean values?", "completion": "No. FLOWROLL requires numeric input. Convert booleans to 0/1 first if needed."}
+{"prompt": "How do I troubleshoot blank FLOWROLL results?", "completion": "Check that PeriodCount doesn't exceed available periods and verify input data is non-blank and chronologically ordered."}
+{"prompt": "What does DIMMATCH return for filtered hierarchies?", "completion": "DIMMATCH operates on full structure before filters. Apply DIMMATCH first, then filter the result."}
+{"prompt": "How do I calculate a 52-week rolling sum?", "completion": "Use `FLOWROLL(LineItem, 52, \"BACKWARD\")` for a trailing 52-week total."}
+{"prompt": "Why does FLOWROLL skip certain periods?", "completion": "Hidden or filtered periods are excluded from the sequential ordering, breaking window continuity."}
+{"prompt": "Can DIMMATCH aggregate from child to parent levels?", "completion": "Yes. DIMMATCH automatically aggregates when the target dimension is at a higher level than the source."}
+{"prompt": "What's the syntax for a 5-period forward sum?", "completion": "Use `FLOWROLL(LineItem, 5, \"FORWARD\")` to compute the next 5 periods' sum."}
+{"prompt": "How do I fix DIMMATCH when it ignores certain items?", "completion": "Those items lack mapping relationships. Add complete mappings for all source members."}
+{"prompt": "Can FLOWROLL handle daily data?", "completion": "Yes. FLOWROLL works with any sequential periods including days, weeks, months, or custom intervals."}
+{"prompt": "Why does DIMMATCH expand to more members than expected?", "completion": "The target hierarchy has child nodes. DIMMATCH distributes values to all applicable target members."}
+{"prompt": "How do I compute a 3-month moving total by channel?", "completion": "Use `FLOWROLL(ChannelData, 3, \"BACKWARD\")` to calculate independent 3-month totals for each channel."}
+{"prompt": "What happens when FLOWROLL windows overlap?", "completion": "That's normal behavior. Each period gets its own window based on PeriodCount and Direction."}
+{"prompt": "Can DIMMATCH work with alternate hierarchies?", "completion": "Yes, if alternate paths are defined with proper mapping relationships in the model."}
+{"prompt": "How do I get a trailing 10-period average?", "completion": "Use `FLOWROLL(LineItem, 10, \"BACKWARD\") / 10` to compute the 10-period trailing average."}
+{"prompt": "Why does FLOWROLL return blanks at year-end?", "completion": "FORWARD direction requires future periods. Year-end has no subsequent periods, causing blanks."}
+{"prompt": "What does DIMMATCH do with inactive members?", "completion": "Inactive members are typically excluded unless explicitly included in active selection or mappings."}
+{"prompt": "Can FLOWROLL calculate weighted averages?", "completion": "No. FLOWROLL only computes raw sums. Calculate weighted averages separately using the FLOWROLL result."}
+{"prompt": "How do I align SKU-level data to brand hierarchy?", "completion": "Use `DIMMATCH(SKUData, BrandList)` with a SKU-to-brand mapping table."}
+{"prompt": "What causes FLOWROLL values to oscillate?", "completion": "Volatile input data or values entering/leaving the window create fluctuations. Larger PeriodCount smooths results."}
+{"prompt": "Can DIMMATCH merge data from multiple sources?", "completion": "No. DIMMATCH aligns a single source to a target dimension. Merge sources first, then apply DIMMATCH."}
+{"prompt": "How do I calculate quarterly rolling sums?", "completion": "Use `FLOWROLL(LineItem, 3, \"BACKWARD\")` if your model uses monthly periods (3 months = 1 quarter)."}
+{"prompt": "Why does FLOWROLL produce lower values after data corrections?", "completion": "Corrected values change the window composition. FLOWROLL recalculates based on the updated input data."}
+{"prompt": "What happens if DIMMATCH target dimension changes?", "completion": "DIMMATCH recalculates alignment based on the new target structure and mapping relationships."}
+{"prompt": "Can FLOWROLL work with sparse data?", "completion": "Yes, but missing periods within the range will prevent complete windows, causing blanks."}
+{"prompt": "How do I fix DIMMATCH when alignment looks correct but values are wrong?", "completion": "DIMMATCH only handles structure. Verify the source formula and input data are correct."}
+{"prompt": "What's the behavior of FLOWROLL with PeriodCount equal to total periods?", "completion": "Only the final period (BACKWARD) or first period (FORWARD) will have a complete window; others will be blank."}
+{"prompt": "Can I use DIMMATCH in conditional formulas?", "completion": "Yes. Ensure both conditional branches have compatible dimensionality before applying DIMMATCH."}
+{"prompt": "How do I get a 26-week rolling total?", "completion": "Use `FLOWROLL(LineItem, 26, \"BACKWARD\")` for a trailing 26-week sum."}
+{"prompt": "Why does FLOWROLL ignore certain data points?", "completion": "Only values within the current window are included. Values outside the PeriodCount range are excluded."}
+{"prompt": "What does DIMMATCH do when source and target are identical?", "completion": "DIMMATCH passes through values unchanged, though this adds unnecessary overhead. Remove redundant DIMMATCH calls."}
+{"prompt": "Can FLOWROLL calculate exponential moving averages?", "completion": "No. FLOWROLL computes simple rolling sums. Implement exponential weighting separately."}
+{"prompt": "How do I align regional data to a global rollup?", "completion": "Use `DIMMATCH(RegionalData, GlobalList)` with a region-to-global mapping structure."}

@@ -1,0 +1,36 @@
+{"prompt": "FLOWROLL stops working when I change the model\u2019s time range. Why would adjusting the global time range break rolling windows?", "completion": "Those removed periods were likely part of earlier windows."}
+{"prompt": "DIMMATCH aligns most items but skips the ones created late in the year. Why only late-year items?", "completion": "Add hierarchy relationships to include them in DIMMATCH."}
+{"prompt": "FLOWROLL gives me the same value across 12 periods even though the inputs vary. Why is it flat?", "completion": "That rolling window produces strong smoothing."}
+{"prompt": "DIMMATCH alignment works but drops items that are inactive. Why does DIMMATCH ignore inactive members?", "completion": "Include them to retain their alignment."}
+{"prompt": "FLOWROLL outputs shrink drastically when I move from monthly to daily data. Why?", "completion": "A 30-day window is much narrower than a 30-month window."}
+{"prompt": "DIMMATCH refuses to align two lists that both roll up to the same top-level parent. Why does that matter?", "completion": "Those differences block structural alignment."}
+{"prompt": "FLOWROLL seems to produce values offset by two periods. What could cause a two-period shift?", "completion": "Normalize period labels for correct sorting."}
+{"prompt": "DIMMATCH duplicates rows when my mapping table has multiple valid targets. Is that expected?", "completion": "Resolve many-to-many mappings or aggregate first."}
+{"prompt": "FLOWROLL returns different results after I added fiscal weeks. Why?", "completion": "Irregular period lengths change rolling window composition."}
+{"prompt": "DIMMATCH deletes some values entirely when aligning to a list subset. Why deletion?", "completion": "Use the full list for alignment, filter later."}
+{"prompt": "FLOWROLL collapses to zero when all previous periods are removed. Why?", "completion": "That is not enough to form multi-period windows."}
+{"prompt": "DIMMATCH seems to partially align but leaves some items unmatched even though the names match. Why?", "completion": "Synchronizing codes will fix the issue."}
+{"prompt": "FLOWROLL spikes on one line item only. What would cause a spike for one but not others?", "completion": "That adjustment drives the spike."}
+{"prompt": "DIMMATCH won\u2019t align a calculated item even though it shares the same list. Why not?", "completion": "LOOKUP modified the dimensionality."}
+{"prompt": "FLOWROLL goes blank if one period is text instead of numeric. Is that normal?", "completion": "Clean or convert before rolling."}
+{"prompt": "DIMMATCH reverses the order of members when aligning. Why reversed?", "completion": "That explains the reversed output."}
+{"prompt": "FLOWROLL fails silently when using a large PeriodCount. Why no error?", "completion": "That results in blanket blanks."}
+{"prompt": "DIMMATCH shrinks my dataset dramatically after I update the mapping table. Why smaller now?", "completion": "That consolidation reduces the dimensional output."}
+{"prompt": "FLOWROLL produces identical outputs when I input a steady increasing trend. Why no visible growth?", "completion": "Larger changes would be needed to move the rolling totals noticeably."}
+{"prompt": "DIMMATCH aligns correctly but raises warnings about orphan members. What are orphans?", "completion": "Assign parents to remove the warnings."}
+{"prompt": "FLOWROLL drops sharply mid-year after a data cleanup. Why would cleanup cause a mid-year drop?", "completion": "Those inflated values previously boosted mid-year windows."}
+{"prompt": "DIMMATCH refuses to align two lists that differ only in one missing parent. Should one parent matter that much?", "completion": "Restore the parent to re-enable alignment."}
+{"prompt": "FLOWROLL produces negative windows even though all input values are positive. How?", "completion": "Those offsets cause negative rolling sums."}
+{"prompt": "DIMMATCH realigns values to the wrong product family after I edited hierarchy. Why misalignment?", "completion": "Update the mapping to reflect the new structure."}
+{"prompt": "FLOWROLL produces different values for two time lists that appear identical. Why?", "completion": "That changes all rolling windows."}
+{"prompt": "DIMMATCH output is blank only for the last period. Why not earlier ones?", "completion": "Add mapping for it."}
+{"prompt": "FLOWROLL outcomes double when I duplicate the series. Why exactly double?", "completion": "None. It scales proportionally."}
+{"prompt": "DIMMATCH seems to scramble ordering inside the output. Why scrambled?", "completion": "Sorting the Target list will resolve output ordering."}
+{"prompt": "FLOWROLL fails for a custom fiscal calendar with period names like 'W1', 'W2', etc. Should that work?", "completion": "Correct chronological ordering is required."}
+{"prompt": "DIMMATCH unexpectedly expands single Territory values across multiple stores. Why that expansion?", "completion": "Hence the expanded output."}
+{"prompt": "FLOWROLL produces inconsistent results after importing a CSV with custom ordering. Why?", "completion": "Reorder the imported data chronologically."}
+{"prompt": "DIMMATCH shows alignment but values vanish for some branches. Why vanish?", "completion": "Use leaf-to-leaf mapping for full preservation."}
+{"prompt": "FLOWROLL decreases sharply whenever a large early value drops out. Why so sharp?", "completion": "Its removal explains the sharp decrease."}
+{"prompt": "DIMMATCH fails when aligning a calculated item that references two hierarchies. Why?", "completion": "Align each dimension separately."}
+{"prompt": "FLOWROLL seems to ignore updated values in the tail periods. Why no effect at the end?", "completion": "Only windows that include that period update."}
+{"prompt": "DIMMATCH realigns values but summary totals differ from before. Is that expected?", "completion": "Expansion increases summary totals unless adjusted."}

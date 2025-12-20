@@ -1,0 +1,35 @@
+{"prompt": "FLOWROLL keeps returning blanks after I introduced a custom 4-4-5 retail calendar. Is that expected?", "completion": "Alphabetical sorting breaks the chronological sequence, preventing valid rolling windows."}
+{"prompt": "DIMMATCH returns partial alignment when I only mapped parent items. Isn\u2019t that enough?", "completion": "Add mappings for all leaf members to ensure complete alignment."}
+{"prompt": "FLOWROLL seems to output the same value for three periods, then suddenly jumps. Why the sudden jump?", "completion": "Once that value leaves the rolling window, the sum drops sharply."}
+{"prompt": "DIMMATCH alignment fails only when applied inside a COLLECT-based module. Why?", "completion": "Composite lists often differ structurally from the target; map them explicitly first."}
+{"prompt": "FLOWROLL returns huge values when PeriodCount is larger than the available window. Why so large?", "completion": "That produces windows that often include many zeros, but spikes still propagate strongly."}
+{"prompt": "DIMMATCH expands my numbers across multiple geographies. Why expansion?", "completion": "Your Source likely aligns only to Country, causing broadcast across Regions and Stores."}
+{"prompt": "FLOWROLL breaks only in Q4 despite perfect behavior all year. Why Q4?", "completion": "Renaming can affect sorting if it's not chronologically placed."}
+{"prompt": "DIMMATCH is working but logs warnings about 'structural drift'. What does that mean?", "completion": "Update the mapping to include the new children."}
+{"prompt": "FLOWROLL shows a plateau for a while and then drops quickly. What causes plateau behavior?", "completion": "That explains the plateau; the drop is from the shifted window contents."}
+{"prompt": "DIMMATCH fails only when aligning against a list whose parents have selective access enabled. Why?", "completion": "Ensure mappings reference full structures, not filtered ones."}
+{"prompt": "FLOWROLL seems to skip a period entirely even though the data is correct. Why?", "completion": "Manual imports often break ordering\u2014review the sequence."}
+{"prompt": "DIMMATCH applies correctly for Products but misaligns for Channels. Why inconsistency?", "completion": "Provide a Channel-specific mapping to fix alignment."}
+{"prompt": "FLOWROLL suddenly outputs blanks during months with promotional spikes. Why blanks during spikes?", "completion": "That non-numeric entry breaks the rolling window."}
+{"prompt": "DIMMATCH compresses four SKUs into one category. Why such heavy compression?", "completion": "That mapping design creates intentional compression."}
+{"prompt": "FLOWROLL spikes upward when I remove a zero from earlier data. Why adding non-zero earlier causes upward spikes?", "completion": "Then upward movement is expected."}
+{"prompt": "DIMMATCH shows duplicates after I added an alternative mapping. Why duplicates now?", "completion": "That produces duplicates; use one primary mapping."}
+{"prompt": "FLOWROLL collapses to zero during a period of partial data. Why zeros suddenly?", "completion": "Blank windows propagate zeros depending on your data rules."}
+{"prompt": "DIMMATCH won't align the newly added 'Online' channel. Why just that one?", "completion": "Add a mapping entry for 'Online' to enable alignment."}
+{"prompt": "FLOWROLL drops dramatically when I introduce a missing early-period value. Why one blank kills everything?", "completion": "Then all windows overlapping it will show reduced or blank results."}
+{"prompt": "DIMMATCH repeats certain products twice after I restructured the hierarchy. Why repeated rows?", "completion": "Multiple parents cause duplication unless mapping is restricted."}
+{"prompt": "FLOWROLL output is identical to a moving average I calculated separately. Why same results?", "completion": "FLOWROLL is the numerator of that average."}
+{"prompt": "DIMMATCH errors when aligning one-to-many mappings. Can it handle one-to-many?", "completion": "Resolve the conflicting paths first."}
+{"prompt": "FLOWROLL shows inverted results after I reversed the time list. Why inverted?", "completion": "FLOWROLL requires ascending chronological sequences."}
+{"prompt": "DIMMATCH alignment appears correct but produces different totals each time I recalc. Why fluctuating totals?", "completion": "Stable mapping tables are needed for consistent totals."}
+{"prompt": "FLOWROLL displays correct values except for a sudden flatline. What causes a flatline?", "completion": "That uniformity propagates through the roll."}
+{"prompt": "DIMMATCH refuses to align even though both lists share the same names. Why doesn't name matching matter?", "completion": "Rebuilt lists are new structures; re-map them."}
+{"prompt": "FLOWROLL jumps dramatically when one extreme value enters the window. Is that normal?", "completion": "Then the behavior is expected."}
+{"prompt": "DIMMATCH sometimes aligns values to the wrong parent category. What causes misalignment?", "completion": "Auto-mapping often misassigns ambiguous entries\u2014review manually."}
+{"prompt": "FLOWROLL goes blank during the last few periods in FORWARD mode. Is that expected?", "completion": "No future periods means no valid FORWARD windows."}
+{"prompt": "DIMMATCH collapses entire product families when aligning to a summary-level target. Why collapsed?", "completion": "Leaf-level details collapse into that category."}
+{"prompt": "FLOWROLL values drop in places where the input is actually rising. Why inverse behavior?", "completion": "Their exit caused the drop."}
+{"prompt": "DIMMATCH errors only when aligning a cloned module. Why cloned modules fail?", "completion": "Duplicated lists break structural identity."}
+{"prompt": "FLOWROLL zeros out for relevant periods after I changed data types. Why zero?", "completion": "Reformat to numeric to restore rolling totals."}
+{"prompt": "DIMMATCH alignment works but child totals are slightly off. Why slight discrepancies?", "completion": "Remove duplicates to correct totals."}
+{"prompt": "FLOWROLL appears to lag behind the trend even in BACKWARD mode. Why lag?", "completion": "Large windows dampen and delay visible changes."}

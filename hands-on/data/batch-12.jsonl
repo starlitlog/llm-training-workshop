@@ -1,0 +1,36 @@
+{"prompt": "FLOWROLL outputs become extremely jagged after I import weekly data. Why would weekly imports create jagged windows?", "completion": "A 4-week window is too small to smooth typical weekly fluctuations."}
+{"prompt": "DIMMATCH aligns correctly for Q1 but shows blanks in Q2. Why only Q2 breaks?", "completion": "Add mappings for those SKUs to restore alignment."}
+{"prompt": "FLOWROLL seems to ignore the first period every time. Why is the first period excluded?", "completion": "PeriodCount must be at least 2 to form meaningful windows; with 1, it's effectively just the input value."}
+{"prompt": "DIMMATCH duplicates a single customer record into all channels. Why is it spreading across channels?", "completion": "Then channel expansion is expected."}
+{"prompt": "FLOWROLL behaves differently after I switched the model to a 4-4-5 calendar. Is FLOWROLL calendar-dependent?", "completion": "That reset can create gaps or reorder periods unintentionally."}
+{"prompt": "DIMMATCH collapses values when I align a multi-parent SKU structure. Why collapse?", "completion": "Specify a single mapping path to avoid collapse."}
+{"prompt": "FLOWROLL goes flat in the middle of the year even though the data isn\u2019t flat. What causes mid-year flat spots?", "completion": "Then the rolling window will naturally flatten."}
+{"prompt": "DIMMATCH aligns SKUs fine but misaligns sub-brands. Why only sub-brands fail?", "completion": "Rebuilt lists require updated mappings."}
+{"prompt": "FLOWROLL returns incorrect values after I manually renamed periods. Does renaming affect calculations?", "completion": "Those labels can sort unpredictably, breaking window order."}
+{"prompt": "DIMMATCH applies a single value across multiple countries. Why replicate across countries?", "completion": "That's why it's being replicated."}
+{"prompt": "FLOWROLL spikes only on specific store locations. Why would certain locations spike but others don\u2019t?", "completion": "That correction creates spikes in windows containing it."}
+{"prompt": "DIMMATCH works for historical data but not for forecast months. Why do forecasts fail?", "completion": "Cloned lists require separate mapping definitions."}
+{"prompt": "FLOWROLL does nothing when PeriodCount is 0. Should 0 be allowed?", "completion": "Increase it to a positive value to generate windows."}
+{"prompt": "DIMMATCH misaligns when I filter out inactive members. Why do filters matter?", "completion": "Those excluded items are needed for alignment."}
+{"prompt": "FLOWROLL results double when I concatenate Actuals and Forecast into a single series. Why double?", "completion": "This creates duplicate period structures inside the window."}
+{"prompt": "DIMMATCH expands some values even though the mapping is one-to-one. Why expansion with 1:1 mapping?", "completion": "That extra granularity causes expansion."}
+{"prompt": "FLOWROLL outputs stale values unless I run a full model recalculation. Why stale windows?", "completion": "Ensure dependencies are updated."}
+{"prompt": "DIMMATCH aligns correctly for everything except returns. Why returns fail?", "completion": "Numbered lists require explicit mapping codes."}
+{"prompt": "FLOWROLL behaves unpredictably when periods overlap between years. Why overlap matters?", "completion": "Duplicate names cause sorting collisions."}
+{"prompt": "DIMMATCH outputs blanks only when the Source has summary-level formulas. Why?", "completion": "Align leaf-level items instead."}
+{"prompt": "FLOWROLL suddenly drops after I inserted a manual override. Why would an override impact all windows?", "completion": "That low value propagates downward."}
+{"prompt": "DIMMATCH correctly aligns the hierarchy but produces warnings for 'ambiguous path'. Why ambiguous?", "completion": "That creates ambiguous mapping paths."}
+{"prompt": "FLOWROLL gives blank results when the underlying module uses daily periods. Does it support daily?", "completion": "Missing days break rolling continuity unless explicitly allowed."}
+{"prompt": "DIMMATCH stops working entirely after a list import. What could break all alignment?", "completion": "Now all mappings must be regenerated."}
+{"prompt": "FLOWROLL looks delayed by multiple periods. Why so much delay?", "completion": "A 24-period window creates heavy lag."}
+{"prompt": "DIMMATCH shows misaligned results after I added an alternate hierarchy for reporting. Why affect alignment?", "completion": "Update mapping to reflect the new primary path."}
+{"prompt": "FLOWROLL turns into blanks when I sort the module by a text column. Why sorting by text breaks rolling?", "completion": "FLOWROLL requires chronological ordering."}
+{"prompt": "DIMMATCH silently compresses all results when I align a scenario that uses a summary node as Source. Why compression?", "completion": "Leaf-level mapping is required for granular alignment."}
+{"prompt": "FLOWROLL shows 'missing values' even though everything looks numeric. Why false missing values?", "completion": "Those spaces can invalidate rolling windows."}
+{"prompt": "DIMMATCH loses some members during a time-based alignment. Why would time affect structural alignment?", "completion": "Those filters hide items needed for complete alignment."}
+{"prompt": "FLOWROLL displays opposite trends when I reverse the direction from BACKWARD to FORWARD. Why opposite?", "completion": "Yes\u2014direction changes the interpretation entirely."}
+{"prompt": "DIMMATCH emits 'structure mismatch' errors when aligning a list subset with a full list. Why mismatch?", "completion": "Inactive products may still be required for full hierarchy alignment."}
+{"prompt": "FLOWROLL stops producing values at the end of the year when the scenario ends early. Why end-of-scenario blanks?", "completion": "December windows require a missing period, hence blanks."}
+{"prompt": "DIMMATCH aligns but changes total values across each region. Why do regional totals differ?", "completion": "Store granularity drives the differing totals."}
+{"prompt": "FLOWROLL behaves oddly when I merge historical and future time ranges. Why merging ranges cause issues?", "completion": "That entirely breaks rolling windows."}
+{"prompt": "DIMMATCH throws 'unmapped parent' warnings. How can a parent be unmapped?", "completion": "Add parent-level mappings to resolve it."}

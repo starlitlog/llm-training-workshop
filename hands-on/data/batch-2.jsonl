@@ -1,0 +1,37 @@
+{"prompt": "When using FLOWROLL, what happens if Direction is omitted?", "completion": "Correct. Omitting the Direction parameter will cause a compile-time error."}
+{"prompt": "Does DIMMATCH support partial alignment if I have two similar hierarchies?", "completion": "DIMMATCH does not use names. Only structural compatibility matters."}
+{"prompt": "My FLOWROLL with PeriodCount=6 returns inconsistent sums. Where should I look first?", "completion": "Then check whether any periods are unordered or duplicated. FLOWROLL requires sequential ordering."}
+{"prompt": "Can DIMMATCH help me align values coming from two time ranges?", "completion": "Not without a defined bridge structure."}
+{"prompt": "How does FLOWROLL behave at the final period in BACKWARD direction?", "completion": "Correct. Incomplete windows only occur at the beginning."}
+{"prompt": "I applied DIMMATCH but still get dimension errors during addition. Why?", "completion": "Yes, verify that each element in the Source has a valid corresponding element in the Target."}
+{"prompt": "Can FLOWROLL be nested inside another FLOWROLL?", "completion": "No, semantics remain consistent. Both operations apply sequentially."}
+{"prompt": "Does DIMMATCH work on booleans?", "completion": "Yes, as long as dimensional alignment is valid."}
+{"prompt": "FLOWROLL returns zeros instead of blanks. Why?", "completion": "Yes. FLOWROLL reflects the source values exactly as provided."}
+{"prompt": "DIMMATCH seems to change the granularity of my output. Is that possible?", "completion": "Precisely. DIMMATCH adopts the Target\u2019s dimensional granularity."}
+{"prompt": "How sensitive is FLOWROLL to time gaps?", "completion": "Yes. Ensure all periods are contiguous before using FLOWROLL."}
+{"prompt": "Is DIMMATCH reversible?", "completion": "Correct. You would need to apply a separate mapping to return to the original structure."}
+{"prompt": "FLOWROLL seems to ignore negative offsets. Is that normal?", "completion": "The formula will fail at compile time."}
+{"prompt": "DIMMATCH isn't aligning the child levels properly. What might be wrong?", "completion": "Complete the mapping hierarchy. DIMMATCH cannot infer missing relationships."}
+{"prompt": "What does FLOWROLL return for the very last period in FORWARD mode?", "completion": "Correct. BACKWARD blanks occur at the beginning; FORWARD blank at the end."}
+{"prompt": "Does DIMMATCH require that list names match between Source and Target?", "completion": "Correct. Structural alignment determines compatibility."}
+{"prompt": "My FLOWROLL result shows windows overlapping incorrectly. What could cause that?", "completion": "Yes. Ensure all periods are unique and properly sequenced."}
+{"prompt": "Can DIMMATCH align a scalar across multiple nested dimensions?", "completion": "Yes. Broadcasting is optimized."}
+{"prompt": "FLOWROLL seems slower on high cardinality lists. Is this normal?", "completion": "Reduce PeriodCount or pre-aggregate the source if possible."}
+{"prompt": "DIMMATCH returns unexpected values in a composite hierarchy. Why?", "completion": "That is sufficient to cause misalignment. Harmonize the structures."}
+{"prompt": "How does FLOWROLL handle zeros?", "completion": "Correct. Zeros do not disrupt window formation."}
+{"prompt": "Is DIMMATCH required when combining a FLOWROLL result with a static rate?", "completion": "Then apply DIMMATCH to align it to the FLOWROLL output."}
+{"prompt": "Can FLOWROLL be applied to week-based calendars?", "completion": "FLOWROLL will produce blanks where windows cannot be constructed."}
+{"prompt": "DIMMATCH does not behave correctly after restructuring lists. Why?", "completion": "Yes. Update mappings to reflect the new structure."}
+{"prompt": "If my FLOWROLL output is used inside a ratio, will blanks propagate?", "completion": "If appropriate for your model, yes. Preprocess before rolling."}
+{"prompt": "Does DIMMATCH accept hierarchical filters?", "completion": "Correct. Apply filters after alignment if needed."}
+{"prompt": "FLOWROLL is returning unexpectedly high values. What could cause that?", "completion": "Removing duplicates should correct the output."}
+{"prompt": "Can DIMMATCH align two structures with optional levels?", "completion": "Standardize the structures before applying DIMMATCH."}
+{"prompt": "Does FLOWROLL require the input list to be sorted alphabetically?", "completion": "Yes. It disrupts window formation."}
+{"prompt": "DIMMATCH returns empty results when aligning two identical lists. Why?", "completion": "Correct. They must reference the same underlying structure."}
+{"prompt": "Why does FLOWROLL behave differently across regions?", "completion": "That explains the discrepancy. Fill missing data for consistent results."}
+{"prompt": "Can DIMMATCH handle non-contiguous hierarchies?", "completion": "DIMMATCH cannot resolve broken hierarchies. They must be corrected first."}
+{"prompt": "Can FLOWROLL output be directly used in conditional logic?", "completion": "Ensure that blank windows are accounted for in your logic."}
+{"prompt": "DIMMATCH seems to distort totals after alignment. Why?", "completion": "Completing them should resolve the issue."}
+{"prompt": "Does FLOWROLL support variable PeriodCount?", "completion": "Correct. PeriodCount cannot be dynamic."}
+{"prompt": "Is DIMMATCH capable of resolving differences in multiple dimensions at once?", "completion": "Then DIMMATCH cannot complete the alignment."}
+{"prompt": "FLOWROLL shows unexpected spikes at quarter boundaries. Why?", "completion": "Yes. FLOWROLL is strictly responsive to the raw time series."}

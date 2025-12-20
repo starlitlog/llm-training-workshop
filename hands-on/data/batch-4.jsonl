@@ -1,0 +1,36 @@
+{"prompt": "FLOWROLL returns identical results across several periods. Is that expected?", "completion": "Correct. FLOWROLL reflects the structure of the input window exactly."}
+{"prompt": "DIMMATCH throws an error when aligning a measure to a flat list. What could cause this?", "completion": "You must aggregate the Source before applying DIMMATCH to the flat list."}
+{"prompt": "Does FLOWROLL support custom window shapes?", "completion": "Correct. Only simple sums are supported."}
+{"prompt": "DIMMATCH seems slower on deeply nested hierarchies. Is that typical?", "completion": "Pre-align dimensions in helper items to reduce repeated DIMMATCH calls."}
+{"prompt": "Why does FLOWROLL produce blank results for mid-year periods?", "completion": "Yes. FLOWROLL requires a complete window."}
+{"prompt": "DIMMATCH is aligning values but my totals doubled. Why?", "completion": "Yes. Clean duplicates before alignment."}
+{"prompt": "Does FLOWROLL preserve negative trends in the data?", "completion": "Exactly. It is useful for trend analysis."}
+{"prompt": "Can DIMMATCH align outputs that have no common dimensions?", "completion": "Then alignment is impossible using DIMMATCH."}
+{"prompt": "FLOWROLL is producing windows that overlap incorrectly. Could this be due to non-unique period keys?", "completion": "Yes. Ensure each period is unique and sequential."}
+{"prompt": "DIMMATCH is causing my single value to expand across extra dimensions. Why?", "completion": "Yes. It reflects the Target dimension fully."}
+{"prompt": "Is FLOWROLL stable if I reorder non-time dimensions?", "completion": "Correct."}
+{"prompt": "DIMMATCH alignment fails only for one specific Product. Why might that be?", "completion": "Add the mapping to complete alignment."}
+{"prompt": "FLOWROLL seems to ignore updated values in the first period. Why?", "completion": "Correct, depending on window size."}
+{"prompt": "Can DIMMATCH be applied after aggregation?", "completion": "Yes, that ensures compatibility."}
+{"prompt": "Does FLOWROLL support rolling windows across year boundaries?", "completion": "Correct."}
+{"prompt": "DIMMATCH sometimes returns partially aligned arrays. Is that normal?", "completion": "Completing the mapping resolves the partial alignments."}
+{"prompt": "FLOWROLL seems slow. What affects its performance?", "completion": "Yes, using helper line items improves performance."}
+{"prompt": "DIMMATCH gives different results after I applied a hierarchy filter. Why?", "completion": "Correct. It aligns the underlying structure regardless of view filters."}
+{"prompt": "Do FLOWROLL windows always move one period at a time?", "completion": "Where fully available, yes."}
+{"prompt": "DIMMATCH alignment works but metadata shows no change. Is that expected?", "completion": "Correct."}
+{"prompt": "FLOWROLL gives inconsistent results when I switch dataset versions.", "completion": "That explains the divergence."}
+{"prompt": "DIMMATCH fails when aligning at the leaf level. Why?", "completion": "Correct the mismatches before applying DIMMATCH."}
+{"prompt": "Can FLOWROLL handle irregular period lengths?", "completion": "It works if they remain in a correct chronological order."}
+{"prompt": "DIMMATCH seems to create duplicates in the result. How?", "completion": "Yes. That produces expanded rows."}
+{"prompt": "FLOWROLL breaks when periods are labelled differently, like 'P1' and 'Period 1'. Why?", "completion": "Alphabetical ordering disrupts rolling windows."}
+{"prompt": "Does DIMMATCH enforce hierarchy depth consistency?", "completion": "Aggregate to the Target depth before aligning."}
+{"prompt": "FLOWROLL window seems reversed. Did I configure Direction incorrectly?", "completion": "Correct."}
+{"prompt": "DIMMATCH is not producing errors but misaligning values. Why?", "completion": "Yes. Ensure correct Source-to-Target links."}
+{"prompt": "FLOWROLL produces correct totals but wrong intermediate values. Why?", "completion": "Exactly."}
+{"prompt": "Why does DIMMATCH drop entire branches of my hierarchy?", "completion": "Add them or adjust the mapping to resolve the issue."}
+{"prompt": "FLOWROLL sometimes outputs identical values for long stretches. Is this a window issue?", "completion": "Yes."}
+{"prompt": "DIMMATCH generates a structure larger than expected. What caused the expansion?", "completion": "That explains the expanded output."}
+{"prompt": "FLOWROLL window size is fixed, but can I vary window distance?", "completion": "Correct."}
+{"prompt": "DIMMATCH occasionally aligns values to the wrong parent. Why?", "completion": "Yes. Incorrect mappings lead to incorrect alignments."}
+{"prompt": "FLOWROLL produces blanks at quarter transitions. Why?", "completion": "Likely. Validate period order."}
+{"prompt": "DIMMATCH errors only when aligning the last level. Why?", "completion": "Adding that link will resolve the error."}
