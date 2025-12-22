@@ -1,0 +1,58 @@
+# Llama 7B Large Training Configuration
+# High-performance for powerful GPUs (24GB+ VRAM)
+
+model_name: meta-llama/Llama-2-7b-hf
+dataset_path: ./data
+dataset_pattern: "*.jsonl"
+tokenized_path: data/tokenized
+use_tokenized: true
+data_format: prompt_completion
+
+# Data source configuration (local only for educational use)
+data_source:
+  type: local
+
+cuda_visible_devices: "0"
+output_dir: outputs/runs
+
+# Training hyperparameters (Optimized for 24GB+ VRAM)
+epochs: 3
+batch_size: 4
+lr: 2e-4
+gradient_accumulation_steps: 2
+max_length: 1024
+
+# Learning rate schedule
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler_type: cosine
+
+# Precision (BF16 for newer GPUs, fallback to FP16)
+bf16: true
+fp16: false
+
+# LoRA configuration (Conservative for larger model)
+lora_r: 32
+lora_alpha: 64
+lora_dropout: 0.1
+lora_target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# Logging
+save_steps: 50
+logging_steps: 10
+logging_strategy: "steps"
+evaluation_strategy: "steps"
+
+# Memory optimization (Essential for large models)
+gradient_checkpointing: true
+
+# DataLoader optimization
+dataloader_num_workers: 6
+dataloader_prefetch_factor: 3

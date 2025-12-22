@@ -1,12 +1,12 @@
-# Llama 3B Training Configuration
-# Smaller, faster model for quick iterations
+# Llama 3B Medium Training Configuration
+# Balanced performance for mid-range GPUs (12-24GB VRAM)
 
 model_name: meta-llama/Llama-3.2-3B
 dataset_path: ./data
 dataset_pattern: "*.jsonl"
-tokenized_path: data/tokenized  # Pre-tokenized dataset (created by make tokenize)
-use_tokenized: true  # Set to false to tokenize on-the-fly
-data_format: prompt_completion  # Universal format for all models
+tokenized_path: data/tokenized
+use_tokenized: true
+data_format: prompt_completion
 
 # Data source configuration (local only for educational use)
 data_source:
@@ -15,7 +15,7 @@ data_source:
 cuda_visible_devices: "0"
 output_dir: outputs/runs
 
-# Training hyperparameters (Fast iteration config - optimized for 48GB)
+# Training hyperparameters (Optimized for 12-24GB VRAM)
 epochs: 5
 batch_size: 8
 lr: 3e-4
@@ -27,11 +27,11 @@ warmup_ratio: 0.03
 weight_decay: 0
 lr_scheduler_type: cosine
 
-# Precision (RTX 8000 doesn't support BF16 - use FP16 instead)
+# Precision (FP16 for compatibility)
 bf16: false
 fp16: true
 
-# LoRA configuration (High-Capacity)
+# LoRA configuration (High-capacity for better performance)
 lora_r: 64
 lora_alpha: 128
 lora_dropout: 0.05
@@ -50,9 +50,9 @@ logging_steps: 20
 logging_strategy: "steps"
 evaluation_strategy: "steps"
 
-# Memory optimization
-gradient_checkpointing: false  # Disabled - we have plenty of VRAM
+# Memory optimization (Disabled for sufficient VRAM)
+gradient_checkpointing: false
 
-# DataLoader optimization (speeds up data loading)
+# DataLoader optimization
 dataloader_num_workers: 8
 dataloader_prefetch_factor: 4

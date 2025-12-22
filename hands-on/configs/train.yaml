@@ -8,16 +8,9 @@ tokenized_path: data/tokenized  # Pre-tokenized dataset (created by make tokeniz
 use_tokenized: true  # Set to false to tokenize on-the-fly
 data_format: prompt_completion  # Universal format for all models
 
-# Data source configuration
+# Data source configuration (local only for educational use)
 data_source:
-  type: local  # local or lakefs
-  lakefs:
-    endpoint: http://localhost:8000
-    repo: anysecret-data
-    branch: main
-    path: data
-    access_key: null
-    secret_key: null
+  type: local
 
 cuda_visible_devices: "0"
 output_dir: outputs/runs
