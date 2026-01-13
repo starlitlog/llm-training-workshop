@@ -1,0 +1,58 @@
+# Mistral Nemo 12B Instruct Training Configuration (Phase 2)
+# Standard LoRA for 12B model
+
+model_name: mistralai/Mistral-Nemo-Instruct-2407
+dataset_path: ./data
+dataset_pattern: "*.jsonl"
+tokenized_path: data/tokenized
+use_tokenized: true
+data_format: prompt_completion
+
+# Data source configuration
+data_source:
+  type: local
+
+cuda_visible_devices: "0"
+output_dir: outputs/runs
+
+# Training hyperparameters (Conservative for 12B)
+epochs: 3
+batch_size: 2
+lr: 1e-4
+gradient_accumulation_steps: 4
+max_length: 1024
+
+# Learning rate schedule
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler_type: cosine
+
+# Precision
+bf16: true
+fp16: false
+
+# LoRA configuration (Higher rank for persona learning)
+lora_r: 64
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# Logging
+save_steps: 50
+logging_steps: 10
+logging_strategy: "steps"
+evaluation_strategy: "steps"
+
+# Memory optimization
+gradient_checkpointing: true
+
+# DataLoader optimization
+dataloader_num_workers: 4
+dataloader_prefetch_factor: 2

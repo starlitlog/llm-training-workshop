@@ -11,7 +11,7 @@ import shutil
 
 from datasets import load_dataset
 from omegaconf import OmegaConf
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from rich.console import Console
 from transformers import AutoTokenizer, AutoModelForCausalLM, Trainer, TrainingArguments
 import torch
@@ -182,16 +182,66 @@ def run_training(cfg):
         load_dtype = torch.float32
 
     console.print(f"[cyan]Loading model with dtype:[/cyan] {load_dtype}")
-    dtype_param = "dtype" if "dtype" in inspect.signature(AutoModelForCausalLM.from_pretrained).parameters else "torch_dtype"
-    base_model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        **{dtype_param: load_dtype},
-        device_map="auto",
-    )
+
+    # === Model Loading: Quantized (4-bit/8-bit) vs Standard LoRA ===
+    # Use Flash Attention 2 if available (config option, default True)
+    use_flash_attn = cfg.get("use_flash_attention", True)
+    attn_impl = "flash_attention_2" if use_flash_attn else None
+
+    if cfg.get("load_in_4bit", False):
+        # QLoRA path - 4-bit quantized loading
+        from transformers import BitsAndBytesConfig
+
+        console.print("[cyan]Using QLoRA (4-bit quantization)[/cyan]")
+        if use_flash_attn:
+            console.print("[cyan]Using Flash Attention 2[/cyan]")
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=load_dtype,
+            bnb_4bit_quant_type=cfg.get("bnb_4bit_quant_type", "nf4"),
+            bnb_4bit_use_double_quant=cfg.get("bnb_4bit_use_double_quant", True),
+        )
+        base_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=bnb_config,
+            device_map="auto",
+            attn_implementation=attn_impl,
+        )
+        base_model = prepare_model_for_kbit_training(base_model)
+    elif cfg.get("load_in_8bit", False):
+        # 8-bit quantized loading
+        from transformers import BitsAndBytesConfig
+
+        console.print("[cyan]Using 8-bit quantization[/cyan]")
+        if use_flash_attn:
+            console.print("[cyan]Using Flash Attention 2[/cyan]")
+        bnb_config = BitsAndBytesConfig(load_in_8bit=True)
+        base_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=bnb_config,
+            device_map="auto",
+            attn_implementation=attn_impl,
+        )
+        base_model = prepare_model_for_kbit_training(base_model)
+    else:
+        # Standard LoRA path
+        if use_flash_attn:
+            console.print("[cyan]Using Flash Attention 2[/cyan]")
+        dtype_param = "dtype" if "dtype" in inspect.signature(AutoModelForCausalLM.from_pretrained).parameters else "torch_dtype"
+        base_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            **{dtype_param: load_dtype},
+            device_map="auto",
+            attn_implementation=attn_impl,
+        )
 
     # Enable gradient checkpointing for memory efficiency
     if cfg.get("gradient_checkpointing", False):
-        base_model.gradient_checkpointing_enable()
+        # Quantized models require use_reentrant=False
+        if cfg.get("load_in_4bit", False) or cfg.get("load_in_8bit", False):
+            base_model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+        else:
+            base_model.gradient_checkpointing_enable()
         console.print("[cyan]Gradient checkpointing enabled[/cyan]")
 
     # Get target modules from config, or use default

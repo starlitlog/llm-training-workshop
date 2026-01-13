@@ -7,7 +7,12 @@ from typing import Dict, Iterable, Union
 
 import torch
 from rich.console import Console
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, AutoModel, AutoProcessor
+try:
+    from transformers import Gemma3ForConditionalGeneration
+    HAS_GEMMA3 = True
+except ImportError:
+    HAS_GEMMA3 = False
 from peft import AutoPeftModelForCausalLM, PeftConfig, PeftModel
 from omegaconf import OmegaConf
 import evaluate
@@ -272,6 +277,9 @@ def run_evaluation(cfg):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     # Load model
+    is_gemma3 = False
+    processor = None
+
     if not use_gguf:
         dtype = torch.float16 if torch.cuda.is_available() else torch.float32
         adapter_load_kwargs = {"device_map": "auto", "torch_dtype": dtype}
@@ -279,37 +287,75 @@ def run_evaluation(cfg):
         if model_subfolder:
             adapter_load_kwargs["subfolder"] = model_subfolder
 
-        try:
-            model = AutoPeftModelForCausalLM.from_pretrained(
-                model_path,
+        # Check if this is a Gemma 3 model by looking at config or model name
+        model_config = {}
+        config_path = Path(model_path) / "config.json"
+        if config_path.exists():
+            import json as json_module
+            with open(config_path) as f:
+                model_config = json_module.load(f)
+            architectures = model_config.get("architectures", [])
+            is_gemma3 = any("Gemma3" in arch for arch in architectures)
+        else:
+            # Detect from model path/name (e.g., google/gemma-3-27b-pt)
+            is_gemma3 = "gemma-3" in model_path.lower() or "gemma3" in model_path.lower()
+
+        if is_gemma3 and HAS_GEMMA3:
+            console.print("[cyan]Detected Gemma 3 model, using Gemma3ForConditionalGeneration...[/cyan]")
+            # Gemma 3 requires bfloat16 for numerical stability + Flash Attention 2
+            gemma3_kwargs = {
                 **adapter_load_kwargs,
-            )
-        except Exception:
-            peft_config_path = Path(model_path) / "adapter_config.json"
-            if peft_config_path.exists():
-                peft_config = PeftConfig.from_pretrained(
-                    model_path,
-                    subfolder=model_subfolder,
-                )
-                base_model = AutoModelForCausalLM.from_pretrained(
-                    peft_config.base_model_name_or_path,
-                    device_map="auto",
-                    torch_dtype=dtype,
-                )
-                model = PeftModel.from_pretrained(
-                    base_model,
-                    model_path,
-                    subfolder=model_subfolder,
-                )
-            else:
-                model = AutoModelForCausalLM.from_pretrained(
+                "torch_dtype": torch.bfloat16,
+                "attn_implementation": "flash_attention_2",
+            }
+            model = Gemma3ForConditionalGeneration.from_pretrained(
+                model_path,
+                **gemma3_kwargs,
+            ).eval()
+            # Try loading processor from model_path, fall back to base model
+            try:
+                processor = AutoProcessor.from_pretrained(model_path)
+            except OSError:
+                # Merged models may not have processor config - load from base model
+                base_model_name = model_config.get("_name_or_path") if model_config else None
+                if not base_model_name:
+                    # Guess based on model path pattern
+                    base_model_name = model_path if "/" in model_path else "google/gemma-3-27b-pt"
+                console.print(f"[yellow]Processor not found locally, loading from {base_model_name}[/yellow]")
+                processor = AutoProcessor.from_pretrained(base_model_name)
+            tokenizer = processor  # Use processor as tokenizer for Gemma 3
+        else:
+            try:
+                model = AutoPeftModelForCausalLM.from_pretrained(
                     model_path,
                     **adapter_load_kwargs,
                 )
+            except Exception:
+                peft_config_path = Path(model_path) / "adapter_config.json"
+                if peft_config_path.exists():
+                    peft_config = PeftConfig.from_pretrained(
+                        model_path,
+                        subfolder=model_subfolder,
+                    )
+                    base_model = AutoModelForCausalLM.from_pretrained(
+                        peft_config.base_model_name_or_path,
+                        device_map="auto",
+                        torch_dtype=dtype,
+                    )
+                    model = PeftModel.from_pretrained(
+                        base_model,
+                        model_path,
+                        subfolder=model_subfolder,
+                    )
+                else:
+                    model = AutoModelForCausalLM.from_pretrained(
+                        model_path,
+                        **adapter_load_kwargs,
+                    )
 
-        tokenizer = AutoTokenizer.from_pretrained(model_path)
-        if tokenizer.pad_token is None:
-            tokenizer.pad_token = tokenizer.eos_token
+            tokenizer = AutoTokenizer.from_pretrained(model_path)
+            if tokenizer.pad_token is None:
+                tokenizer.pad_token = tokenizer.eos_token
 
     # ---------------------------------------------------------------------
     # Evaluation Loop
@@ -335,39 +381,76 @@ def run_evaluation(cfg):
 
         # HF model path
         else:
-            # Build eval prompt EXACTLY like training
-            input_ids = build_eval_input(
-                prompt,
-                tokenizer,
-                model.device,
-                max_len=4096,
-            )
+            if is_gemma3 and processor is not None:
+                # Gemma 3 multimodal: try chat template, fall back to raw text
+                try:
+                    messages = [
+                        {"role": "user", "content": [{"type": "text", "text": prompt}]}
+                    ]
+                    inputs = processor.apply_chat_template(
+                        messages,
+                        add_generation_prompt=True,
+                        tokenize=True,
+                        return_dict=True,
+                        return_tensors="pt",
+                    ).to(model.device)
+                except (ValueError, AttributeError):
+                    # Base model without chat template - use raw text
+                    console.print("[yellow]No chat template, using raw text input[/yellow]", highlight=False)
+                    inputs = processor(text=prompt, return_tensors="pt").to(model.device)
 
-            # Create attention mask (all 1s, no padding)
-            attention_mask = torch.ones_like(input_ids)
+                input_len = inputs["input_ids"].shape[-1]
 
-            # Build generation kwargs
-            gen_kwargs = {
-                "input_ids": input_ids,
-                "attention_mask": attention_mask,
-                "max_new_tokens": max_new_tokens,
-                "pad_token_id": tokenizer.pad_token_id,
-                "eos_token_id": tokenizer.eos_token_id,
-            }
+                gen_kwargs = {
+                    **inputs,
+                    "max_new_tokens": max_new_tokens,
+                }
+                if do_sample and temperature > 0:
+                    gen_kwargs["do_sample"] = True
+                    gen_kwargs["temperature"] = temperature
+                    gen_kwargs["top_p"] = top_p
+                else:
+                    gen_kwargs["do_sample"] = False
 
-            # Only add sampling params if do_sample=True
-            if do_sample and temperature > 0:
-                gen_kwargs["do_sample"] = True
-                gen_kwargs["temperature"] = temperature
-                gen_kwargs["top_p"] = top_p
+                with torch.inference_mode():
+                    output = model.generate(**gen_kwargs)
 
-            with torch.no_grad():
-                output = model.generate(**gen_kwargs)
+                gen_ids = output[0][input_len:]
+                generated = processor.decode(gen_ids, skip_special_tokens=True).strip()
+            else:
+                # Standard path for non-Gemma3 models
+                input_ids = build_eval_input(
+                    prompt,
+                    tokenizer,
+                    model.device,
+                    max_len=4096,
+                )
 
-            # Strip the prompt based on input length
-            input_len = input_ids.shape[-1]
-            gen_ids = output[0][input_len:]
-            generated = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
+                # Create attention mask (all 1s, no padding)
+                attention_mask = torch.ones_like(input_ids)
+
+                # Build generation kwargs
+                gen_kwargs = {
+                    "input_ids": input_ids,
+                    "attention_mask": attention_mask,
+                    "max_new_tokens": max_new_tokens,
+                    "pad_token_id": tokenizer.pad_token_id,
+                    "eos_token_id": tokenizer.eos_token_id,
+                }
+
+                # Only add sampling params if do_sample=True
+                if do_sample and temperature > 0:
+                    gen_kwargs["do_sample"] = True
+                    gen_kwargs["temperature"] = temperature
+                    gen_kwargs["top_p"] = top_p
+
+                with torch.no_grad():
+                    output = model.generate(**gen_kwargs)
+
+                # Strip the prompt based on input length
+                input_len = input_ids.shape[-1]
+                gen_ids = output[0][input_len:]
+                generated = tokenizer.decode(gen_ids, skip_special_tokens=True).strip()
 
         exact = int(generated.lower() == expected.lower())
         overlap = _jaccard_overlap(expected, generated)

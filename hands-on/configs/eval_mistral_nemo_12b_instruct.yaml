@@ -1,0 +1,14 @@
+# Eval config for fine-tuned Mistral Nemo 12B Instruct
+model_path: outputs/runs/latest/merged
+model_subfolder:
+dataset_path: ./data/eval
+dataset_pattern: "*.jsonl"
+data_format: prompt_completion
+metrics_dir: artifacts/metrics/mistral_nemo_12b_instruct
+max_samples: 100
+max_new_tokens: 256
+temperature: 0.7
+top_p: 0.9
+do_sample: true
+cuda_visible_devices: "0"
+use_gguf: false

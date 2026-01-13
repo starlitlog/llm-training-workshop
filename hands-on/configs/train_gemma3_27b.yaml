@@ -1,0 +1,61 @@
+# Gemma 3 27B Base Training Configuration (Phase 2)
+# Optimized for A100 80GB with Flash Attention 2
+
+model_name: google/gemma-3-27b-pt
+dataset_path: ./data
+dataset_pattern: "*.jsonl"
+tokenized_path: data/tokenized
+use_tokenized: true
+data_format: prompt_completion
+
+# Data source configuration
+data_source:
+  type: local
+
+cuda_visible_devices: "0"
+output_dir: outputs/runs
+
+# Training hyperparameters (A100 optimized)
+epochs: 3
+batch_size: 4
+lr: 2e-4
+gradient_accumulation_steps: 2
+max_length: 512
+
+# Learning rate schedule
+warmup_ratio: 0.03
+weight_decay: 0.01
+lr_scheduler_type: cosine
+
+# Precision
+bf16: true
+fp16: false
+
+# A100 optimizations
+use_flash_attention: true
+
+# LoRA configuration (higher rank for better learning)
+lora_r: 64
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+
+# Logging
+save_steps: 50
+logging_steps: 10
+logging_strategy: "steps"
+evaluation_strategy: "steps"
+
+# Memory optimization (disabled for A100 80GB - faster without)
+gradient_checkpointing: false
+
+# DataLoader optimization
+dataloader_num_workers: 4
+dataloader_prefetch_factor: 2
