@@ -15,7 +15,7 @@ data_source:
 cuda_visible_devices: "0"
 output_dir: outputs/runs
 
-# Training hyperparameters (A100 optimized)
+# Training hyperparameters (A100 + LoRA)
 epochs: 3
 batch_size: 2
 lr: 2e-4
@@ -31,8 +31,8 @@ lr_scheduler_type: cosine
 bf16: true
 fp16: false
 
-# A100 optimizations - no quantization needed
-use_flash_attention: true
+# Standard LoRA (no quantization) - faster than QLoRA
+# QLoRA used ~35GB, so standard LoRA should fit on A100 80GB
 
 # LoRA configuration (Higher rank for persona learning)
 lora_r: 64
@@ -53,8 +53,8 @@ logging_steps: 10
 logging_strategy: "steps"
 evaluation_strategy: "steps"
 
-# Memory optimization (may need if OOM)
-gradient_checkpointing: false
+# Memory optimization (enabled - required for 32B without quantization)
+gradient_checkpointing: true
 
 # DataLoader optimization
 dataloader_num_workers: 4

@@ -184,9 +184,9 @@ def run_training(cfg):
     console.print(f"[cyan]Loading model with dtype:[/cyan] {load_dtype}")
 
     # === Model Loading: Quantized (4-bit/8-bit) vs Standard LoRA ===
-    # Use Flash Attention 2 if available (config option, default True)
-    use_flash_attn = cfg.get("use_flash_attention", True)
-    attn_impl = "flash_attention_2" if use_flash_attn else None
+    # Use Flash Attention 2 if available (config option, default False - requires flash-attn package)
+    use_flash_attn = cfg.get("use_flash_attention", False)
+    attn_impl = "flash_attention_2" if use_flash_attn else "sdpa"  # SDPA is PyTorch native
 
     if cfg.get("load_in_4bit", False):
         # QLoRA path - 4-bit quantized loading

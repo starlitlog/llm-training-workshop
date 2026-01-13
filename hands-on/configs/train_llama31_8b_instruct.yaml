@@ -5,7 +5,7 @@ model_name: meta-llama/Llama-3.1-8B-Instruct
 dataset_path: ./data
 dataset_pattern: "*.jsonl"
 tokenized_path: data/tokenized
-use_tokenized: true
+use_tokenized: false  # Tokenize on-the-fly (different tokenizer than previous models)
 data_format: prompt_completion
 
 # Data source configuration
@@ -15,12 +15,12 @@ data_source:
 cuda_visible_devices: "0"
 output_dir: outputs/runs
 
-# Training hyperparameters
+# Training hyperparameters (A100 optimized)
 epochs: 3
-batch_size: 2
+batch_size: 8
 lr: 2e-4
-gradient_accumulation_steps: 4
-max_length: 1024
+gradient_accumulation_steps: 1
+max_length: 512
 
 # Learning rate schedule
 warmup_ratio: 0.03
@@ -50,8 +50,8 @@ logging_steps: 10
 logging_strategy: "steps"
 evaluation_strategy: "steps"
 
-# Memory optimization
-gradient_checkpointing: true
+# Memory optimization (disabled - 8B fits easily on A100)
+gradient_checkpointing: false
 
 # DataLoader optimization
 dataloader_num_workers: 4

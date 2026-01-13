@@ -181,7 +181,7 @@ init:
 	@echo "$(GREEN)✅ Virtual environment created$(RESET)"
 	@echo ""
 	@echo "$(BOLD)$(CYAN)Installing Python packages...$(RESET)"
-	. $(VENV)/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
+	. $(VENV)/bin/activate && pip install --upgrade pip wheel setuptools && pip install -r requirements.txt
 	@echo ""
 	@echo "$(GREEN)✅ Setup complete!$(RESET)"
 	@echo ""
